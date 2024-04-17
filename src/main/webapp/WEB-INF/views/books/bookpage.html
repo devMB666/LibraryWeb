@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Page</title>
+</head>
+<body>
+<h2>Book Information</h2>
+<div>
+    <span>Name:</span>
+    <b><span th:utext="${book.getName()}">Name</span></b>
+    <br>
+    <span>Author:</span>
+    <b><span th:utext="${book.getAuthor()}">Author</span></b>
+    <br>
+    <span>Year:</span>
+    <b><span th:utext="${book.getYear()}">Year</span></b>
+    <br>
+
+<!--    upd edit status-->
+</div>
+</body>
+</html>
