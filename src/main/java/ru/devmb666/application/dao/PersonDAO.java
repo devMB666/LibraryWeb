@@ -44,12 +44,4 @@ public class PersonDAO {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id=?",id);
     }
-
-    public List<OrderBook> getBookList(int personId){
-        return jdbcTemplate.query("SELECT order_book.person_id, order_book.book_id, b.name, b.author FROM order_book join public.book b on b.id = order_book.book_id WHERE order_book.person_id=?", new OrderMapper(), personId);
-    }
-
-    public void releaseBook(int book_id){
-        jdbcTemplate.update("DELETE FROM order_book WHERE book_id=?", book_id);
-    }
 }

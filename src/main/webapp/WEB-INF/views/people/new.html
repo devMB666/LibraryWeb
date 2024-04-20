@@ -14,10 +14,10 @@
     </div>
     <br>
 
-    <label for="age">Enter age: </label>
-    <input type="text" th:field="*{date}" id="age"/>
-    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{date}">
-        Age error
+    <label for="date">Enter date: </label>
+    <input type="text" th:field="*{date}" id="date"/>
+    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">
+        Date error
     </div>
     <br>
 

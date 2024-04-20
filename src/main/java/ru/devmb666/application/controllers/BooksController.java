@@ -11,6 +11,7 @@ import ru.devmb666.application.dao.BooksDAO;
 import ru.devmb666.application.dao.PersonDAO;
 import ru.devmb666.application.models.Book;
 import ru.devmb666.application.models.Person;
+import ru.devmb666.application.util.OrderValidator;
 
 @Controller
 @RequestMapping("/books")
@@ -19,10 +20,13 @@ public class BooksController {
 
     private final PersonDAO personDAO;
 
+    private final OrderValidator orderValidator;
+
     @Autowired
-    public BooksController(BooksDAO booksDAO, PersonDAO personDAO) {
+    public BooksController(BooksDAO booksDAO, PersonDAO personDAO, OrderValidator orderValidator) {
         this.booksDAO = booksDAO;
         this.personDAO = personDAO;
+        this.orderValidator = orderValidator;
     }
 
     @GetMapping()
@@ -61,7 +65,7 @@ public class BooksController {
     @GetMapping("/{id}/edit")
     public String editForm(Model model, @PathVariable("id") int id){
         model.addAttribute("book", booksDAO.getBookById(id));
-        return "/books/edit";
+        return "books/edit";
     }
 
     @PatchMapping("/{id}")
@@ -70,15 +74,23 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @GetMapping("/appoint/{id}") //ModelAttribute - то что передается сюда
-    public String appointBookPage(Model model, @ModelAttribute("person") Person person, @PathVariable("id") int book_id){
+    @GetMapping("/{id}/appoint") //ModelAttribute - то что передается сюда
+    public String appointBookPage(Model model, @ModelAttribute("person") Person person,
+                                  @PathVariable("id") int book_id){
         model.addAttribute("people", personDAO.index());
         model.addAttribute("book_id", book_id);
-        return "/books/appointPage";
+        return "books/appointPage";
     }
 
-    @PatchMapping("/{id}/app")
-    public String appoint(@ModelAttribute("person") Person person, @PathVariable("id") int book_id){
+    @PatchMapping("/app/{id}")
+    public String appoint(@ModelAttribute("person") Person person,
+                          @ModelAttribute("book") Book book,
+                          @PathVariable("id") int book_id, BindingResult bindingResult){
+        System.out.println(book.getId());
+        orderValidator.validate(booksDAO.getBookById(book_id), bindingResult);
+        if (bindingResult.hasErrors()){
+            return "redirect:/books/"+book_id+"/appoint";
+        }
         booksDAO.appointBook(person.getId(),book_id);
         return "redirect:/books";
     }

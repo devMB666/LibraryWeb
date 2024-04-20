@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.devmb666.application.dao.OrderDAO;
 import ru.devmb666.application.dao.PersonDAO;
-import ru.devmb666.application.models.OrderBook;
 import ru.devmb666.application.models.Person;
 
 @Controller
@@ -15,9 +15,11 @@ import ru.devmb666.application.models.Person;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final OrderDAO orderDAO;
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, OrderDAO orderDAO) {
         this.personDAO = personDAO;
+        this.orderDAO = orderDAO;
     }
 
     @GetMapping()
@@ -29,7 +31,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable(value = "id") int id, Model model){
         model.addAttribute("person", personDAO.show(id));
-        model.addAttribute("bookList", personDAO.getBookList(id));
+        model.addAttribute("bookList", orderDAO.getBookList(id));
         return "people/show";
     }
 
@@ -42,7 +44,6 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
         if(bindingResult.hasErrors()) return "people/new";
-
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -68,16 +69,9 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    @GetMapping("/id/takebook")
-    public String takeBookForm(Model model, @PathVariable("id") int id){
-        model.addAttribute("order", new OrderBook());
-        model.addAttribute("order", new OrderBook());
-        return "people/take";
-    }
-
     @DeleteMapping("/release/{id}")
     public String release(@PathVariable("id") int id){
-        personDAO.releaseBook(id);
+        orderDAO.releaseBook(id);
         return "redirect:/people";
     }
 }
