@@ -39,4 +39,12 @@ public class Person {
     public int getDate() {
         return date;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

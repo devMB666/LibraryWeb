@@ -8,16 +8,21 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.devmb666.application.dao.BooksDAO;
+import ru.devmb666.application.dao.PersonDAO;
 import ru.devmb666.application.models.Book;
+import ru.devmb666.application.models.Person;
 
 @Controller
 @RequestMapping("/books")
 public class BooksController {
     private final BooksDAO booksDAO;
 
+    private final PersonDAO personDAO;
+
     @Autowired
-    public BooksController(BooksDAO booksDAO) {
+    public BooksController(BooksDAO booksDAO, PersonDAO personDAO) {
         this.booksDAO = booksDAO;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
@@ -65,5 +70,18 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @GetMapping("/appoint/{id}") //ModelAttribute - то что передается сюда
+    public String appointBookPage(Model model, @ModelAttribute("person") Person person, @PathVariable("id") int book_id){
+        model.addAttribute("people", personDAO.index());
+        model.addAttribute("book_id", book_id);
+        return "/books/appointPage";
+    }
+
+    @PatchMapping("/{id}/app")
+    public String appoint(@ModelAttribute("person") Person person, @PathVariable("id") int book_id){
+        booksDAO.appointBook(person.getId(),book_id);
+        return "redirect:/books";
+    }
+    //state
 
 }

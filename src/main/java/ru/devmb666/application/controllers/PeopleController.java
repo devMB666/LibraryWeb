@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.devmb666.application.dao.PersonDAO;
+import ru.devmb666.application.models.OrderBook;
 import ru.devmb666.application.models.Person;
 
 @Controller
@@ -28,6 +29,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable(value = "id") int id, Model model){
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("bookList", personDAO.getBookList(id));
         return "people/show";
     }
 
@@ -63,6 +65,19 @@ public class PeopleController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id){
         personDAO.delete(id);
+        return "redirect:/people";
+    }
+
+    @GetMapping("/id/takebook")
+    public String takeBookForm(Model model, @PathVariable("id") int id){
+        model.addAttribute("order", new OrderBook());
+        model.addAttribute("order", new OrderBook());
+        return "people/take";
+    }
+
+    @DeleteMapping("/release/{id}")
+    public String release(@PathVariable("id") int id){
+        personDAO.releaseBook(id);
         return "redirect:/people";
     }
 }

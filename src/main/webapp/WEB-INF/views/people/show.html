@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+    <p th:text="${person.getId()}">VALUE</p>
+    <p th:text="${person.getName()}">VALUE</p>
+    <p th:text="${person.getDate()}">VALUE</p>
+
+    <div th:each="order : ${bookList}">
+        <form th:method="DELETE" th:action="@{/people/release/{id}(id=${order.getBook_id()})}">
+            <a th:href="@{/books/{id}(id=${order.getBook_id()})}" th:text="${order.getAuthorName() + ' | ' + order.getBookName()}">list</a>
+            <input type="submit" value="Release">
+        </form>
+    </div>
+
+    <br>
+
+    <br>
+    <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+        <input type="submit" value="EDIT">
+    </form>
+
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="DELETE"/>
+    </form>
+</body>
+</html>

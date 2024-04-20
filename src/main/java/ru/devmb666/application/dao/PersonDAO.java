@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.devmb666.application.models.Book;
+import ru.devmb666.application.models.OrderBook;
 import ru.devmb666.application.models.Person;
 
 import java.sql.PreparedStatement;
@@ -32,11 +34,6 @@ public class PersonDAO {
                 .stream().findAny().orElse(null);
     }
 
-//    public Optional<Person> show(String email){
-//        return jdbcTemplate.query("SELECT * FROM Person WHERE email=?", new BeanPropertyRowMapper<>(Person.class),email)
-//                .stream().findAny();
-//    }
-
     public void save(Person person){
         jdbcTemplate.update("INSERT INTO Person(name, date) VALUES (?,?)", person.getName(), person.getDate());
     }
@@ -48,4 +45,11 @@ public class PersonDAO {
         jdbcTemplate.update("DELETE FROM Person WHERE id=?",id);
     }
 
+    public List<OrderBook> getBookList(int personId){
+        return jdbcTemplate.query("SELECT order_book.person_id, order_book.book_id, b.name, b.author FROM order_book join public.book b on b.id = order_book.book_id WHERE order_book.person_id=?", new OrderMapper(), personId);
+    }
+
+    public void releaseBook(int book_id){
+        jdbcTemplate.update("DELETE FROM order_book WHERE book_id=?", book_id);
+    }
 }

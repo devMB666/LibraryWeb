@@ -37,4 +37,8 @@ public class BooksDAO {
     public void deleteBook(int id){
         jdbcTemplate.update("DELETE FROM Book WHERE id=?", id);
     }
+
+    public void appointBook(int person_id, int book_id){
+        jdbcTemplate.update("INSERT INTO order_book values (?,?)", book_id, person_id);
+    }
 }
