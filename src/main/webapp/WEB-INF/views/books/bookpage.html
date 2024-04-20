@@ -17,7 +17,13 @@
     <b><span th:utext="${book.getYear()}">Year</span></b>
     <br>
 
-<!--    upd edit status-->
+    <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+        <input type="submit" value="EDIT">
+    </form>
+
+    <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+        <input type="submit" value="DELETE"/>
+    </form>
 </div>
 </body>
 </html>
