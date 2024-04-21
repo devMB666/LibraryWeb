@@ -28,6 +28,8 @@ public class OrderDAO {
         return jdbcTemplate.query("SELECT * FROM order_book WHERE book_id=?", new BeanPropertyRowMapper<>(OrderBook.class), bookId)
                 .stream().findAny();
     }
+
+
     public void releaseBook(int book_id){
         jdbcTemplate.update("DELETE FROM order_book WHERE book_id=?", book_id);
     }

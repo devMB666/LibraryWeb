@@ -1,7 +1,10 @@
 package ru.devmb666.application.models;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 public class OrderBook {
     private int person_id;
+    @UniqueElements(message = "unique")
     private int book_id;
     private String authorName;
     private String bookName;

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.devmb666.application.dao.BooksDAO;
+import ru.devmb666.application.dao.OrderDAO;
 import ru.devmb666.application.dao.PersonDAO;
 import ru.devmb666.application.models.Book;
 import ru.devmb666.application.models.Person;
@@ -17,14 +18,16 @@ import ru.devmb666.application.util.OrderValidator;
 @RequestMapping("/books")
 public class BooksController {
     private final BooksDAO booksDAO;
+    private final OrderDAO orderDAO;
 
     private final PersonDAO personDAO;
 
     private final OrderValidator orderValidator;
 
     @Autowired
-    public BooksController(BooksDAO booksDAO, PersonDAO personDAO, OrderValidator orderValidator) {
+    public BooksController(BooksDAO booksDAO, OrderDAO orderDAO, PersonDAO personDAO, OrderValidator orderValidator) {
         this.booksDAO = booksDAO;
+        this.orderDAO = orderDAO;
         this.personDAO = personDAO;
         this.orderValidator = orderValidator;
     }

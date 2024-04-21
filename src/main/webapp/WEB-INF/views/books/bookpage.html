@@ -17,7 +17,11 @@
     <b><span th:utext="${book.getYear()}">Year</span></b>
     <br>
 
-    <a th:href="@{/books/{id}/appoint(id=${book.getId()})}">APPOINT</a>
+    <form th:action="@{/books/{id}/appoint(id=${book.getId()})}">
+        <button>Appoint</button>
+    </form>
+
+<!--    <button th:href="@{/books/{id}/appoint(id=${book.getId()})}">APPOINT</button>-->
 
     <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
         <input type="submit" value="EDIT">
