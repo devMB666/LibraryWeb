@@ -41,6 +41,8 @@ public class BooksController {
     @GetMapping("/{id}")
     public String showBook(@PathVariable("id") int id, Model model){
         model.addAttribute("book", booksDAO.getBookById(id));
+        model.addAttribute("isBookFree", orderDAO.isBookFree(id));
+        model.addAttribute("order", orderDAO.getPersonByBookId(id));
         return "books/bookpage";
     }
 
@@ -89,14 +91,13 @@ public class BooksController {
     public String appoint(@ModelAttribute("person") Person person,
                           @ModelAttribute("book") Book book,
                           @PathVariable("id") int book_id, BindingResult bindingResult){
-        System.out.println(book.getId());
         orderValidator.validate(booksDAO.getBookById(book_id), bindingResult);
         if (bindingResult.hasErrors()){
-            return "redirect:/books/"+book_id+"/appoint";
+            return "books/appointPage";
         }
         booksDAO.appointBook(person.getId(),book_id);
         return "redirect:/books";
     }
     //state
-
+    //return "redirect:/books/"+book_id+"/appoint";
 }

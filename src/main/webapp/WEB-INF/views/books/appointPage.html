@@ -11,6 +11,9 @@
         <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
     </select>
 
+    <div style="color:red" th:if="${#fields.hasErrors('book_id')}" th:errors="*{book_id}">
+        error
+    </div>
     <input type="submit" value="appoint admin"/>
 </form>
 </body>

@@ -5,7 +5,7 @@
     <title>Book Page</title>
 </head>
 <body>
-<h2>Book Information</h2>
+    <h3>Book Information</h3>
 <div>
     <span>Name:</span>
     <b><span th:utext="${book.getName()}">Name</span></b>
@@ -17,9 +17,16 @@
     <b><span th:utext="${book.getYear()}">Year</span></b>
     <br>
 
-    <form th:action="@{/books/{id}/appoint(id=${book.getId()})}">
-        <button>Appoint</button>
-    </form>
+    <div th:switch="${isBookFree}">
+        <div th:case="true">
+        <form th:action="@{/books/{id}/appoint(id=${book.getId()})}">
+            <button>Appoint</button>
+        </form>
+        </div>
+        <div th:case="false">
+            <p th:text="'Book is appointed to ' + ${order}">smth</p>
+        </div>
+    </div>
 
 <!--    <button th:href="@{/books/{id}/appoint(id=${book.getId()})}">APPOINT</button>-->
 

@@ -72,6 +72,6 @@ public class PeopleController {
     @DeleteMapping("/release/{id}")
     public String release(@PathVariable("id") int id){
         orderDAO.releaseBook(id);
-        return "redirect:/people";
+        return "redirect:/people/";
     }
 }

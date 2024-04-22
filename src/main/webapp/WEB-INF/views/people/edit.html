@@ -13,14 +13,14 @@
         Name error
     </div>
     <br>
-
+    <br>
     <label for="date">Enter age: </label>
     <input type="text" th:field="*{date}" id="date">
-    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{date}">
+    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">
         Age error
     </div>
     <br>
-
+    <hr>
     <input type="submit" value="Update">
 </form>
 

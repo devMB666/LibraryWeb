@@ -9,11 +9,14 @@ public class OrderBook {
     private String authorName;
     private String bookName;
 
-    public OrderBook(int person_id, int book_id, String personName, String bookName) {
+    private String personName;
+
+    public OrderBook(int person_id, int book_id, String authorName, String bookName, String personName) {
         this.person_id = person_id;
-        this.authorName = personName;
+        this.authorName = authorName;
         this.book_id = book_id;
         this.bookName = bookName;
+        this.personName = personName;
     }
 
     public void setAuthorName(String authorName) {
@@ -51,4 +54,11 @@ public class OrderBook {
         return book_id;
     }
 
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
 }

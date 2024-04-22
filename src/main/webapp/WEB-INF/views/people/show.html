@@ -5,9 +5,11 @@
     <title>Person</title>
 </head>
 <body>
-    <p th:text="${person.getId()}">VALUE</p>
-    <p th:text="${person.getName()}">VALUE</p>
-    <p th:text="${person.getDate()}">VALUE</p>
+    <h3>Person Information:</h3>
+    <div>
+        <p th:text="'Name: ' + ${person.getName()}">VALUE</p>
+        <p th:text="'Year: ' + ${person.getDate()}">VALUE</p>
+    </div>
 
     <div th:each="order : ${bookList}">
         <form th:method="DELETE" th:action="@{/people/release/{id}(id=${order.getBook_id()})}">
@@ -16,8 +18,7 @@
         </form>
     </div>
 
-    <br>
-
+    <hr>
     <br>
     <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
         <input type="submit" value="EDIT">
