@@ -17,6 +17,8 @@
     <b><span th:utext="${book.getYear()}">Year</span></b>
     <br>
 
+
+
     <div th:switch="${isBookFree}">
         <div th:case="true">
         <form th:action="@{/books/{id}/appoint(id=${book.getId()})}">
@@ -24,7 +26,7 @@
         </form>
         </div>
         <div th:case="false">
-            <p th:text="'Book is appointed to ' + ${order}">smth</p>
+            <p th:text="'Book is appointed to ' + ${order.getName()}">smth</p>
         </div>
     </div>
 

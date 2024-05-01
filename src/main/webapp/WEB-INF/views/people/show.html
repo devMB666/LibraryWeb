@@ -11,9 +11,11 @@
         <p th:text="'Year: ' + ${person.getDate()}">VALUE</p>
     </div>
 
-    <div th:each="order : ${bookList}">
-        <form th:method="DELETE" th:action="@{/people/release/{id}(id=${order.getBook_id()})}">
-            <a th:href="@{/books/{id}(id=${order.getBook_id()})}" th:text="${order.getAuthorName() + ' | ' + order.getBookName()}">list</a>
+<!--    <div th:text="${bookList.get(0).getName()}"></div>-->
+
+    <div th:each="book : ${bookList}">
+        <form th:method="PATCH" th:action="@{/people/release/{id}(id=${book.getId()})}">
+            <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getAuthor() + ' | ' + book.getName()}">list</a>
             <input type="submit" value="Release">
         </form>
     </div>

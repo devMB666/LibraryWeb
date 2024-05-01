@@ -13,6 +13,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>3.2.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -59,6 +64,12 @@
 
     <dependency>
       <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>3.1.2.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf-spring6</artifactId>
       <version>3.1.2.RELEASE</version>
     </dependency>
@@ -76,7 +87,18 @@
       <version>8.0.1.Final</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.3.1.Final</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>LibraryWeb</finalName>
