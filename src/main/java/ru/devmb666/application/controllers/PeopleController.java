@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.devmb666.application.dao.PersonDAO;
 import ru.devmb666.application.models.Book;
 import ru.devmb666.application.models.Person;
 import ru.devmb666.application.services.PeopleService;
@@ -19,16 +18,11 @@ public class PeopleController {
 
 
     private final PeopleService peopleService;
-    private final PersonDAO personDAO;
     private List<Book> list;
-    //private final BooksService booksService;
-    //private final PersonDAO personDAO;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, PersonDAO personDAO) {
+    public PeopleController(PeopleService peopleService) {
         this.peopleService = peopleService;
-        this.personDAO = personDAO;
-        //this.booksService = booksService;
     }
 
 
@@ -55,7 +49,6 @@ public class PeopleController {
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
         if(bindingResult.hasErrors()) return "people/new";
         peopleService.save(person);
-        //personDAO.save(person);
         return "redirect:/people";
     }
 
@@ -72,14 +65,12 @@ public class PeopleController {
         }
 
         peopleService.update(id, person);
-        //personDAO.update(id, person);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id){
         peopleService.delete(id);
-        //personDAO.delete(id);
         return "redirect:/people";
     }
 

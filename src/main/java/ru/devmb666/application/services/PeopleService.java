@@ -10,8 +10,6 @@ import ru.devmb666.application.models.Book;
 import ru.devmb666.application.models.Person;
 import ru.devmb666.application.repositories.PeopleRepository;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +29,6 @@ public class PeopleService {
         Session session = entityManager.unwrap(Session.class);
         Person person = session.get(Person.class, id);
         Hibernate.initialize(person.getBooks());
-        //System.out.println(person.getBooks());//+" t: "+ person.getBooks().isEmpty()
         return person.getBooks();
     }
 
@@ -42,7 +39,6 @@ public class PeopleService {
         Person person = session.get(Person.class, book.getOwner().getId());
         book.setOwner(null);
         person.getBooks().remove(book);
-        //jdbcTemplate.update("DELETE FROM order_book WHERE book_id=?", book_id);
     }
 
     public List<Person> getAllPeople() {
@@ -70,4 +66,10 @@ public class PeopleService {
         peopleRepository.deleteById(id);
     }
 
+    public Person getPersonByBookId(int book_id){
+        Session session = entityManager.unwrap(Session.class);
+        Book book = session.get(Book.class, book_id);
+        Optional<Person> person = Optional.ofNullable(book.getOwner());
+        return person.orElse(null);
+    }
 }

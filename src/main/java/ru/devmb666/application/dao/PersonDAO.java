@@ -14,12 +14,10 @@ import java.util.Optional;
 public class PersonDAO {
 
     private final EntityManager entityManager;
-    //private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public PersonDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
-        //this.jdbcTemplate = jdbcTemplate;
     }
 
     public Person getPersonByBookId(int book_id){

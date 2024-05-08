@@ -26,23 +26,23 @@ public class BooksDAO {
     }
 
 
-    public boolean isBookFree(int bookId) {
-        Session session = entityManager.unwrap(Session.class);
-        Book book = session.get(Book.class, bookId);
-        if(book.getOwner() == null){
-            return true;
-        }
-        else return false;
-    }
+//    public boolean isBookFree(int bookId) {
+//        Session session = entityManager.unwrap(Session.class);
+//        Book book = session.get(Book.class, bookId);
+//        if(book.getOwner() == null){
+//            return true;
+//        }
+//        else return false;
+//    }
 
-    @Transactional
-    public void appointBook(int person_id, int book_id){
-        Session session = entityManager.unwrap(Session.class);
-        Book book = session.get(Book.class, book_id);
-        Person person = session.get(Person.class, person_id);
-        book.setOwner(person);
-        person.getBooks().add(book);
-    }
+//    @Transactional
+//    public void appointBook(int person_id, int book_id){
+//        Session session = entityManager.unwrap(Session.class);
+//        Book book = session.get(Book.class, book_id);
+//        Person person = session.get(Person.class, person_id);
+//        book.setOwner(person);
+//        person.getBooks().add(book);
+//    }
 
 //    public List<Book> getListOfBooks(){
 //        return jdbcTemplate.query("SELECT * FROM Book", new BeanPropertyRowMapper<>(Book.class));
