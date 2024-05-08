@@ -3,8 +3,10 @@ package ru.devmb666.application.services;
 import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.devmb666.application.models.Book;
 import ru.devmb666.application.models.Person;
 import ru.devmb666.application.repositories.BookRepository;
@@ -24,8 +26,16 @@ public class BooksService {
         this.entityManager = entityManager;
     }
 
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+//    public List<Book> getAllBooks() {
+//        return bookRepository.findAll();
+//    }
+
+    public List<Book> getBooksByNameStartsWith(String bookName) {
+        return bookRepository.findBooksByNameStartingWith(bookName);
+    }
+
+    public List<Book> getBooks(PageRequest pageRequest) {
+        return bookRepository.findAll(pageRequest).getContent();
     }
 
     public Book getBookById(int id) {

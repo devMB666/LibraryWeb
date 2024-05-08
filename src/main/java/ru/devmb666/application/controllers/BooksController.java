@@ -3,6 +3,8 @@ package ru.devmb666.application.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,9 +27,21 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String index(Model model){
-        model.addAttribute("books", booksService.getAllBooks());
+    public String index(Model model,
+                        @RequestParam(required = false, defaultValue = "0") int page,
+                        @RequestParam(required = false, defaultValue = "5") int size,
+                        @RequestParam(required = false, defaultValue = "false") boolean sorting
+                        ){
+        model.addAttribute("books", booksService.getBooks(PageRequest.of(page, size, Sort.by("year"))));
         return "books/index";
+    }
+
+    @GetMapping("/search")
+    public String searchBook(Model model,
+                             @RequestParam(required = false, defaultValue = "") String title){
+        model.addAttribute("books", booksService.getBooksByNameStartsWith(title));
+        model.addAttribute("title", title);
+        return "books/search";
     }
 
     @GetMapping("/{id}")

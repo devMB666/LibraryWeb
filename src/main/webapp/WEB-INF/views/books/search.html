@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    <form th:method="GET" th:action="@{/books/search}">
+        <label for="title"></label>
+        <input id="title" type="search" name="title">
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <div th:each="book : ${books}">
+        <div>
+            <p th:text="${book.getName()}"></p>
+            <p th:text="${book.getOwner().getName()}"></p>
+        </div>
+    </div>
+</body>
+</html>
