@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 @Entity
 @Table(name = "Book")
 public class Book {
@@ -32,18 +35,31 @@ public class Book {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
 
+    @Column(name = "date_appoint")
+    @Temporal(TemporalType.DATE)
+    private LocalDate date;
+
     public Book() {
     }
 
-    public Book(String name, String author, Integer year, Person owner) {
+    public Book(String name, String author, Integer year, Person owner, LocalDate date) {
         this.name = name;
         this.author = author;
         this.year = year;
         this.owner = owner;
+        this.date = date;
     }
 
     public Person getOwner() {
         return owner;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public void setOwner(Person owner) {
@@ -90,5 +106,18 @@ public class Book {
                 ", year=" + year +
                 ", owner=" + owner +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id && Objects.equals(name, book.name) && Objects.equals(author, book.author) && Objects.equals(year, book.year) && Objects.equals(date, book.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, author, year, date);
     }
 }

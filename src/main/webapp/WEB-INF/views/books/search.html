@@ -6,7 +6,7 @@
 </head>
 <body>
     <form th:method="GET" th:action="@{/books/search}">
-        <label for="title"></label>
+        <label for="title">Search</label>
         <input id="title" type="search" name="title">
         <input type="submit">
     </form>
@@ -16,7 +16,12 @@
     <div th:each="book : ${books}">
         <div>
             <p th:text="${book.getName()}"></p>
-            <p th:text="${book.getOwner().getName()}"></p>
+            <div th:switch="${book.getOwner()!=null}">
+                <div th:case="true">
+                    <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getOwner().getName()} + ', ' + ${book.getDate()}"></a>
+                </div>
+                <p th:case="false" th:text="'No owner'"></p>
+            </div>
         </div>
     </div>
 </body>

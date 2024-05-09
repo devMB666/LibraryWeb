@@ -48,6 +48,7 @@ public class BooksController {
     public String showBook(@PathVariable("id") int id, Model model){
         model.addAttribute("book", booksService.getBookById(id));
         model.addAttribute("isBookFree", booksService.isBookFree(id));
+        model.addAttribute("isExpired", booksService.isExpired(id));
         model.addAttribute("order", peopleService.getPersonByBookId(id));
         return "books/bookpage";
     }

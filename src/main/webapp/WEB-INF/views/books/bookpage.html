@@ -26,7 +26,7 @@
         </form>
         </div>
         <div th:case="false">
-            <p th:text="'Book is appointed to ' + ${order.getName()}">smth</p>
+            <p th:style="${(isExpired == true) ? 'color: red;' : 'color: green;'}" th:text="'Book is appointed to ' + ${order.getName()}">smth</p>
         </div>
     </div>
 
